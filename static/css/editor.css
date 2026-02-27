@@ -6,7 +6,7 @@
 .editor-layout {
     display: flex;
     flex-direction: column;
-    height: min(100vh, 800px);
+    height: 100vh;
 }
 
 .editor-topbar {
@@ -300,5 +300,191 @@
     margin-bottom: 8px;
     padding: 14px 20px;
     font-size: 1rem;
+}
+
+/* ─── Mobile Tab Bar (hidden on desktop) ─── */
+.mobile-tab-bar {
+    display: none;
+}
+
+/* ═══════════════════════════════════════════════
+   MOBILE LAYOUT (<=768px) — Tabbed Editor
+   ═══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+    /* Editor layout: full viewport, vertical stack */
+    .editor-layout {
+        height: 100vh;
+        height: 100dvh;
+    }
+
+    /* Topbar: compact */
+    .editor-topbar {
+        padding: 8px 16px;
+    }
+
+    .topbar-brand {
+        font-size: 0.95rem;
+    }
+
+    .editor-topbar .btn-ghost {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+
+    /* Main area: switch from row to column */
+    .editor-main {
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    /* Canvas area: ~50% of viewport */
+    .canvas-area {
+        order: 1;
+        flex: none;
+        height: 50vh;
+        height: 50dvh;
+        padding: 12px;
+        min-height: 200px;
+    }
+
+    /* Mobile Tab Bar */
+    .mobile-tab-bar {
+        display: flex;
+        order: 2;
+        flex-shrink: 0;
+        background: var(--bg-secondary);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 0;
+        gap: 0;
+    }
+
+    .mobile-tab {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        padding: 10px 4px;
+        background: none;
+        border: none;
+        border-bottom: 3px solid transparent;
+        color: var(--text-secondary);
+        font-family: var(--font-heading);
+        font-size: 0.65rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: color var(--transition-fast), border-color var(--transition-fast);
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile-tab .tab-icon {
+        font-size: 1.2rem;
+        line-height: 1;
+    }
+
+    .mobile-tab .tab-label {
+        text-transform: lowercase;
+        letter-spacing: 0.02em;
+    }
+
+    .mobile-tab.active {
+        color: var(--text-accent);
+        border-bottom-color: var(--text-accent);
+    }
+
+    /* Sidebar: scrollable panel below tab bar */
+    .editor-sidebar {
+        order: 3;
+        width: 100%;
+        flex: 1;
+        border-left: none;
+        border-top: none;
+        padding: 16px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Hide sidebar title on mobile (tabs replace it) */
+    .editor-sidebar .sidebar-title {
+        display: none;
+    }
+
+    /* Hide section headers on mobile (tab labels replace them) */
+    .editor-sidebar .section-header {
+        display: none;
+    }
+
+    /* Tab content: hide all by default */
+    .editor-sidebar .control-section {
+        display: none;
+        border-bottom: none;
+        padding-top: 0;
+    }
+
+    /* Show the active tab's section */
+    .editor-sidebar[data-active-tab="frames"] .control-section[data-tab="frames"],
+    .editor-sidebar[data-active-tab="vibes"] .control-section[data-tab="vibes"],
+    .editor-sidebar[data-active-tab="text"] .control-section[data-tab="text"],
+    .editor-sidebar[data-active-tab="export"] .control-section[data-tab="export"] {
+        display: block;
+    }
+
+    /* Template grid: larger touch targets */
+    .template-grid {
+        gap: 10px;
+    }
+
+    .template-thumb {
+        padding: 14px 10px;
+        font-size: 0.85rem;
+    }
+
+    /* Gradient grid: bigger swatches */
+    .gradient-grid {
+        gap: 10px;
+    }
+
+    .gradient-swatch {
+        aspect-ratio: 1.2;
+    }
+
+    /* Phrase chips: no max-height on mobile */
+    .phrase-chips {
+        max-height: none;
+    }
+
+    /* Export buttons: large thumb-friendly */
+    .export-section {
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    .btn-export {
+        padding: 18px 24px;
+        font-size: 1.1rem;
+        border-radius: var(--radius-md);
+        margin-bottom: 12px;
+    }
+
+    /* Color picker: larger */
+    .color-picker {
+        width: 48px;
+        height: 40px;
+    }
+
+    /* Text input: larger for mobile */
+    .text-input {
+        padding: 14px 16px;
+        font-size: 1rem;
+    }
+
+    /* Select input: larger for mobile */
+    .select-input {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+    }
 }
 

@@ -119,3 +119,68 @@
     font-size: 0.8rem;
 }
 
+/* ═══════════════════════════════════════════════
+   MOBILE LAYOUT (<=768px) — Landing Page
+   ═══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .landing-hero {
+        padding: 48px 16px 40px;
+        gap: 20px;
+    }
+
+    .hero-badge {
+        font-size: 0.7rem;
+        padding: 5px 12px;
+    }
+
+    .landing-hero .upload-zone {
+        max-width: 100%;
+        padding: 32px 20px;
+    }
+
+    .upload-icon {
+        font-size: 2.4rem;
+    }
+
+    .upload-headline {
+        font-size: 1.15rem;
+    }
+
+    .upload-subtext {
+        font-size: 0.8rem;
+    }
+
+    .upload-hint {
+        font-size: 0.7rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 32px;
+    }
+
+    .feature-card {
+        padding: 20px 16px;
+    }
+
+    .feature-icon {
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+    }
+
+    .feature-card h3 {
+        font-size: 0.95rem;
+    }
+
+    .feature-card p {
+        font-size: 0.8rem;
+    }
+
+    .landing-footer {
+        flex-direction: column;
+        gap: 6px;
+        padding: 24px 16px;
+    }
+}
+

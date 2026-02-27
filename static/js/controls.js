@@ -5,11 +5,38 @@
 
     function initControls(state, onStateChange) {
         populateSlangText();
+        initMobileTabs();
         initTemplateGrid(state, onStateChange);
         initGradientGrid(state, onStateChange);
         initColorPicker(state, onStateChange);
         initTextControls(state, onStateChange);
         initPhraseChips(state, onStateChange);
+    }
+
+    // ─── Mobile Tab Bar ───
+    function initMobileTabs() {
+        var tabBar = document.getElementById("mobile-tab-bar");
+        var sidebar = document.querySelector(".editor-sidebar");
+        if (!tabBar || !sidebar) return;
+
+        // Populate tab labels from slang
+        setText("tab-label-frames", slang("tabFrames"));
+        setText("tab-label-vibes", slang("tabVibes"));
+        setText("tab-label-text", slang("tabText"));
+        setText("tab-label-export", slang("tabExport"));
+
+        // Tab click handler
+        var tabs = tabBar.querySelectorAll(".mobile-tab");
+        tabs.forEach(function (tab) {
+            tab.addEventListener("click", function () {
+                // Update active tab button
+                tabs.forEach(function (t) {
+                    t.classList.toggle("active", t === tab);
+                });
+                // Update sidebar active tab (CSS handles show/hide)
+                sidebar.dataset.activeTab = tab.dataset.tab;
+            });
+        });
     }
 
     // ─── Populate all text from slang.js ───

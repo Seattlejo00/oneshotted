@@ -68,8 +68,17 @@
         // Handle window resize
         window.addEventListener("resize", function () {
             if (AppState.image) {
-                AppState.isDirty = true;
+                sizeCanvas();
             }
+        });
+
+        // Handle mobile orientation change
+        window.addEventListener("orientationchange", function () {
+            setTimeout(function () {
+                if (AppState.image) {
+                    sizeCanvas();
+                }
+            }, 200);
         });
     });
 
@@ -100,8 +109,11 @@
     function sizeCanvas() {
         if (!canvasArea || !previewCanvas || !AppState.image) return;
 
-        var containerW = canvasArea.clientWidth - 48; // padding
-        var containerH = canvasArea.clientHeight - 48;
+        var style = getComputedStyle(canvasArea);
+        var padX = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+        var padY = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+        var containerW = canvasArea.clientWidth - padX;
+        var containerH = canvasArea.clientHeight - padY;
 
         var template = window.TEMPLATES ? window.TEMPLATES[AppState.activeTemplate] : null;
         if (!template) template = { padding: 60, chromeHeight: 0 };

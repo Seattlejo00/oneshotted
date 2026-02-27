@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1280">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oneshotted — screenshot glow ups</title>
     <meta name="description" content="Looksmaxx your screenshots with frames, effects, and certified vibes. Free screenshot beautifier.">
     <meta property="og:title" content="oneshotted — screenshot glow ups">
@@ -76,6 +76,26 @@
 
         <!-- Main editor area -->
         <div class="editor-main">
+            <!-- Mobile tab bar (hidden on desktop) -->
+            <nav class="mobile-tab-bar" id="mobile-tab-bar">
+                <button class="mobile-tab active" data-tab="frames">
+                    <span class="tab-icon">📐</span>
+                    <span class="tab-label" id="tab-label-frames">frames</span>
+                </button>
+                <button class="mobile-tab" data-tab="vibes">
+                    <span class="tab-icon">🎨</span>
+                    <span class="tab-label" id="tab-label-vibes">vibes</span>
+                </button>
+                <button class="mobile-tab" data-tab="text">
+                    <span class="tab-icon">✍️</span>
+                    <span class="tab-label" id="tab-label-text">text</span>
+                </button>
+                <button class="mobile-tab" data-tab="export">
+                    <span class="tab-icon">💾</span>
+                    <span class="tab-label" id="tab-label-export">export</span>
+                </button>
+            </nav>
+
             <!-- Canvas area -->
             <div class="canvas-area">
                 <canvas id="preview-canvas"></canvas>
@@ -83,11 +103,11 @@
             </div>
 
             <!-- Controls sidebar -->
-            <div class="editor-sidebar">
+            <div class="editor-sidebar" data-active-tab="frames">
                 <h2 id="sidebar-title" class="sidebar-title">the glow up station</h2>
 
                 <!-- Template picker -->
-                <div class="control-section">
+                <div class="control-section" data-tab="frames">
                     <h3 id="section-templates" class="section-header">pick your fighter</h3>
                     <div id="template-grid" class="template-grid">
                         <!-- Filled by controls.js -->
@@ -95,7 +115,7 @@
                 </div>
 
                 <!-- Background picker -->
-                <div class="control-section">
+                <div class="control-section" data-tab="vibes">
                     <h3 id="section-backgrounds" class="section-header">set the vibe</h3>
                     <div id="gradient-grid" class="gradient-grid">
                         <!-- Filled by controls.js -->
@@ -107,7 +127,7 @@
                 </div>
 
                 <!-- Text overlay -->
-                <div class="control-section">
+                <div class="control-section" data-tab="text">
                     <h3 id="section-text" class="section-header">say something bestie</h3>
                     <input type="text" id="text-input" class="text-input" placeholder="type your lore here..." maxlength="100">
                     <div id="phrase-chips" class="phrase-chips">
@@ -130,7 +150,7 @@
                 </div>
 
                 <!-- Export buttons -->
-                <div class="control-section export-section">
+                <div class="control-section export-section" data-tab="export">
                     <h3 id="section-export" class="section-header">secure the bag</h3>
                     <button id="btn-download" class="btn btn-primary btn-export">
                         <span>⬇️</span> yoink (download PNG)

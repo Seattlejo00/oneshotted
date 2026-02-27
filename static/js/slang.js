@@ -161,6 +161,12 @@ const SLANG = {
         "add captions with pre-loaded brainrot or write your own lore",
     ],
 
+    // ─── Mobile tab bar labels ───
+    tabFrames: ["frames", "fit check", "drip"],
+    tabVibes: ["vibes", "aura", "aesthetic"],
+    tabText: ["text", "lore", "caption"],
+    tabExport: ["export", "yoink", "secure"],
+
     // ─── Misc ───
     replaceImage: [
         "swap the screenshot",
