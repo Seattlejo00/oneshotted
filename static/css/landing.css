@@ -119,14 +119,3 @@
     font-size: 0.8rem;
 }
 
-/* ─── Responsive ─── */
-@media (max-width: 640px) {
-    .landing-hero {
-        padding: 48px 16px 40px;
-    }
-
-    .features-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-}

@@ -273,20 +273,6 @@ a {
     background: var(--bg-hover);
 }
 
-/* ─── Mobile Toast ─── */
-@media (max-width: 768px) {
-    #toast-container {
-        top: 12px;
-        bottom: auto;
-        left: 12px;
-        right: 12px;
-    }
-
-    .toast {
-        max-width: 100%;
-    }
-}
-
 /* ─── Selection ─── */
 ::selection {
     background: rgba(124, 58, 237, 0.4);
