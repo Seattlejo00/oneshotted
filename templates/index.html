@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/editor.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Toast container -->
+<div id="toast-container"></div>
+
+<!-- ═══════════════ LANDING VIEW ═══════════════ -->
+<div id="landing-view" class="view active">
+    <div class="landing-hero">
+        <div class="hero-badge">screenshot tool for the unhinged</div>
+        <h1 id="hero-headline" class="hero-headline">your screenshots are mid</h1>
+        <p id="hero-subtext" class="hero-subtext">looksmaxx your screenshots with frames, effects, and certified vibes.</p>
+
+        <!-- Upload zone (also appears on landing) -->
+        <div class="upload-zone" id="landing-upload-zone">
+            <input type="file" id="file-input" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+            <div class="upload-icon">📸</div>
+            <h2 id="upload-headline" class="upload-headline">drop the receipts bestie</h2>
+            <p id="upload-subtext" class="upload-subtext">drag & drop, paste (ctrl+v), or click to upload</p>
+            <p class="upload-hint">PNG, JPG, WEBP, GIF — up to 10MB</p>
+        </div>
+
+        <!-- Features -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🖼️</div>
+                <h3 id="feature-frames-title">frames that go hard</h3>
+                <p id="feature-frames-desc">device mockups, clean frames, and more — pick your fighter</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3 id="feature-backgrounds-title">backgrounds that slap</h3>
+                <p id="feature-backgrounds-desc">gradients so clean they should be illegal</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✍️</div>
+                <h3 id="feature-text-title">text overlay era</h3>
+                <p id="feature-text-desc">add captions with pre-loaded brainrot or write your own lore</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="landing-footer">
+        <span class="footer-brand">oneshotted</span>
+        <span id="footer-tagline" class="footer-tagline">made with unhinged energy</span>
+    </footer>
+</div>
+
+<!-- ═══════════════ EDITOR VIEW ═══════════════ -->
+<div id="editor-view" class="view">
+    <div class="editor-layout">
+        <!-- Top bar -->
+        <div class="editor-topbar">
+            <div class="topbar-brand">oneshotted</div>
+            <button id="btn-replace" class="btn btn-ghost">swap the screenshot</button>
+        </div>
+
+        <!-- Main editor area -->
+        <div class="editor-main">
+            <!-- Canvas area -->
+            <div class="canvas-area">
+                <canvas id="preview-canvas"></canvas>
+                <canvas id="export-canvas" style="display:none;"></canvas>
+            </div>
+
+            <!-- Controls sidebar -->
+            <div class="editor-sidebar">
+                <h2 id="sidebar-title" class="sidebar-title">the glow up station</h2>
+
+                <!-- Template picker -->
+                <div class="control-section">
+                    <h3 id="section-templates" class="section-header">pick your fighter</h3>
+                    <div id="template-grid" class="template-grid">
+                        <!-- Filled by controls.js -->
+                    </div>
+                </div>
+
+                <!-- Background picker -->
+                <div class="control-section">
+                    <h3 id="section-backgrounds" class="section-header">set the vibe</h3>
+                    <div id="gradient-grid" class="gradient-grid">
+                        <!-- Filled by controls.js -->
+                    </div>
+                    <div class="color-picker-row">
+                        <label class="color-label">custom color</label>
+                        <input type="color" id="bg-color-picker" value="#7c3aed" class="color-picker">
+                    </div>
+                </div>
+
+                <!-- Text overlay -->
+                <div class="control-section">
+                    <h3 id="section-text" class="section-header">say something bestie</h3>
+                    <input type="text" id="text-input" class="text-input" placeholder="type your lore here..." maxlength="100">
+                    <div id="phrase-chips" class="phrase-chips">
+                        <!-- Filled by controls.js -->
+                    </div>
+                    <div class="text-controls">
+                        <div class="control-row">
+                            <label>where tho</label>
+                            <select id="text-position" class="select-input">
+                                <option value="top">top</option>
+                                <option value="center">center</option>
+                                <option value="bottom" selected>bottom</option>
+                            </select>
+                        </div>
+                        <div class="control-row">
+                            <label>how loud</label>
+                            <input type="range" id="text-size" min="14" max="64" value="28" class="range-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export buttons -->
+                <div class="control-section export-section">
+                    <h3 id="section-export" class="section-header">secure the bag</h3>
+                    <button id="btn-download" class="btn btn-primary btn-export">
+                        <span>⬇️</span> yoink (download PNG)
+                    </button>
+                    <button id="btn-copy" class="btn btn-secondary btn-export">
+                        <span>📋</span> copy to clipboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/canvas.js') }}"></script>
+<script src="{{ url_for('static', filename='js/templates.js') }}"></script>
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+<script src="{{ url_for('static', filename='js/controls.js') }}"></script>
+<script src="{{ url_for('static', filename='js/export.js') }}"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% if start_in_editor %}
+<script>
+    // Direct link to editor — show editor view immediately
+    document.addEventListener("DOMContentLoaded", function() {
+        if (window.AppController) window.AppController.showEditor();
+    });
+</script>
+{% endif %}
+{% endblock %}

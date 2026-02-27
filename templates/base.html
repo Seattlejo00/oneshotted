@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oneshotted — screenshot glow ups</title>
+    <meta name="description" content="Looksmaxx your screenshots with frames, effects, and certified vibes. Free screenshot beautifier.">
+    <meta property="og:title" content="oneshotted — screenshot glow ups">
+    <meta property="og:description" content="Your screenshots are mid. Let's fix that.">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    {% block content %}{% endblock %}
+
+    <!-- Scripts: slang must load first -->
+    <script src="{{ url_for('static', filename='js/slang.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
