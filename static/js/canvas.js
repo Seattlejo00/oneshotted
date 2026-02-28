@@ -102,7 +102,7 @@
         if (!textState.enabled || !textState.text) return;
         s = s || 1;
 
-        var fontSize = Math.max((textState.fontSize || 28) * s, 6);
+        var fontSize = Math.max((textState.fontSize || 28) * s, 14);
         ctx.save();
         ctx.font = "bold " + fontSize + "px 'Space Grotesk', sans-serif";
         ctx.textAlign = "center";
@@ -137,7 +137,7 @@
         ctx.save();
         ctx.globalAlpha = 0.3;
         ctx.fillStyle = "#ffffff";
-        ctx.font = Math.max(Math.round(12 * s), 6) + 'px "Space Grotesk", sans-serif';
+        ctx.font = Math.max(Math.round(12 * s), 8) + 'px "Space Grotesk", sans-serif';
         ctx.textAlign = "right";
         ctx.fillText("oneshotted", W - 12 * s, H - 10 * s);
         ctx.restore();
