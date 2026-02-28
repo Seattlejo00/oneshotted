@@ -105,7 +105,7 @@
                 ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
                 ctx.font = Math.max(Math.round(12 * s), 6) + 'px "Space Grotesk", sans-serif';
                 ctx.textAlign = "left";
-                ctx.fillText("oneshotted.app/slay", barX + 10 * s, barY + 16 * s);
+                ctx.fillText("oneshotted.distomostech.com", barX + 10 * s, barY + 16 * s);
 
                 // Separator line
                 ctx.fillStyle = "rgba(255, 255, 255, 0.06)";
