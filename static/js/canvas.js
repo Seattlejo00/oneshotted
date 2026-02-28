@@ -29,21 +29,32 @@
     }
 
     // ─── Calculate screenshot placement within canvas ───
+    // Padding and chrome scale proportionally with the canvas so the
+    // preview always matches the exported output at any size.
     function calculateBounds(canvasW, canvasH, imgW, imgH, template) {
         var padding = template.padding || 60;
-        var extraTop = template.chromeHeight || 0;
+        var chromeH = template.chromeHeight || 0;
 
-        var availW = canvasW - padding * 2;
-        var availH = canvasH - padding * 2 - extraTop;
+        // Full-size dimensions (image + padding + chrome)
+        var totalW = imgW + padding * 2;
+        var totalH = imgH + padding * 2 + chromeH;
 
-        var scale = Math.min(availW / imgW, availH / imgH);
+        // How much the canvas has been scaled from full size
+        var scale = Math.min(canvasW / totalW, canvasH / totalH);
+
         var w = imgW * scale;
         var h = imgH * scale;
 
-        var x = (canvasW - w) / 2;
-        var y = padding + extraTop + (availH - h) / 2;
+        // Center the whole frame in the canvas
+        var frameW = totalW * scale;
+        var frameH = totalH * scale;
+        var offsetX = (canvasW - frameW) / 2;
+        var offsetY = (canvasH - frameH) / 2;
 
-        return { x: x, y: y, w: w, h: h };
+        var x = offsetX + padding * scale;
+        var y = offsetY + (padding + chromeH) * scale;
+
+        return { x: x, y: y, w: w, h: h, scale: scale };
     }
 
     // ─── Calculate canvas dimensions based on image aspect ratio ───
@@ -87,30 +98,31 @@
     }
 
     // ─── Draw text overlay ───
-    function drawTextOverlay(ctx, W, H, textState) {
+    function drawTextOverlay(ctx, W, H, textState, s) {
         if (!textState.enabled || !textState.text) return;
+        s = s || 1;
 
-        var fontSize = textState.fontSize || 28;
+        var fontSize = Math.max((textState.fontSize || 28) * s, 6);
         ctx.save();
         ctx.font = "bold " + fontSize + "px 'Space Grotesk', sans-serif";
         ctx.textAlign = "center";
 
         var textW = ctx.measureText(textState.text).width;
-        var padX = 16;
-        var padY = 8;
+        var padX = 16 * s;
+        var padY = 8 * s;
         var y;
 
         if (textState.position === "top") {
-            y = fontSize + 20;
+            y = fontSize + 20 * s;
         } else if (textState.position === "center") {
             y = H / 2 + fontSize / 3;
         } else {
-            y = H - 24;
+            y = H - 24 * s;
         }
 
         // Backdrop
         ctx.fillStyle = "rgba(0, 0, 0, 0.55)";
-        roundRect(ctx, W / 2 - textW / 2 - padX, y - fontSize - padY + 4, textW + padX * 2, fontSize + padY * 2, 8);
+        roundRect(ctx, W / 2 - textW / 2 - padX, y - fontSize - padY + 4 * s, textW + padX * 2, fontSize + padY * 2, 8 * s);
         ctx.fill();
 
         // Text
@@ -120,13 +132,14 @@
     }
 
     // ─── Draw watermark ───
-    function drawWatermark(ctx, W, H) {
+    function drawWatermark(ctx, W, H, s) {
+        s = s || 1;
         ctx.save();
         ctx.globalAlpha = 0.3;
         ctx.fillStyle = "#ffffff";
-        ctx.font = '12px "Space Grotesk", sans-serif';
+        ctx.font = Math.max(Math.round(12 * s), 6) + 'px "Space Grotesk", sans-serif';
         ctx.textAlign = "right";
-        ctx.fillText("oneshotted", W - 12, H - 10);
+        ctx.fillText("oneshotted", W - 12 * s, H - 10 * s);
         ctx.restore();
     }
 
@@ -159,11 +172,11 @@
         ctx.restore();
 
         // 5. Text overlay
-        drawTextOverlay(ctx, W, H, state.textOverlay);
+        drawTextOverlay(ctx, W, H, state.textOverlay, bounds.scale);
 
         // 6. Watermark
         if (state.watermark) {
-            drawWatermark(ctx, W, H);
+            drawWatermark(ctx, W, H, bounds.scale);
         }
     }
 
